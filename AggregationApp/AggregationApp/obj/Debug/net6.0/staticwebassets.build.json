@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "OFWHrEZvQlYNv8pLcPWai193cFvnpsbkqV6qdU8j3Xo=",
+  "Source": "AggregationApp.Presentation",
+  "BasePath": "_content/AggregationApp.Presentation",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

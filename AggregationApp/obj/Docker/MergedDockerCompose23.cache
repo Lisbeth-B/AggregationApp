@@ -1,0 +1,59 @@
+name: dockercompose13314061615786291695
+services:
+  aggregationapp:
+    build:
+      context: C:\Users\lizib\OneDrive\Desktop\AggregationApp
+      dockerfile: AggregationApp/Dockerfile
+    container_name: aggregation-app
+    depends_on:
+      aggregationappdb:
+        condition: service_started
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: https://+:443;http://+:80
+      DB_HOST: aggregationappdb
+      DB_NAME: AggregationDB
+      DB_SA_PASSWORD: Pa$$w0rd2023
+    image: aggregationapp
+    networks:
+      demoaggregationapp: null
+    ports:
+    - mode: ingress
+      target: 80
+      protocol: tcp
+    - mode: ingress
+      target: 80
+      published: "8001"
+      protocol: tcp
+    - mode: ingress
+      target: 443
+      protocol: tcp
+    volumes:
+    - type: bind
+      source: C:\Users\lizib\AppData\Roaming/Microsoft/UserSecrets
+      target: /root/.microsoft/usersecrets
+      read_only: true
+      bind:
+        create_host_path: true
+    - type: bind
+      source: C:\Users\lizib\AppData\Roaming/ASP.NET/Https
+      target: /root/.aspnet/https
+      read_only: true
+      bind:
+        create_host_path: true
+  aggregationappdb:
+    container_name: aggregation-app-db
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: Pa$$w0rd2023
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    networks:
+      demoaggregationapp: null
+    ports:
+    - mode: ingress
+      target: 1433
+      published: "8002"
+      protocol: tcp
+networks:
+  demoaggregationapp:
+    name: dockercompose13314061615786291695_demoaggregationapp
